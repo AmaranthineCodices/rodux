@@ -1,0 +1,795 @@
+
+
+
+
+<!DOCTYPE html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      <meta http-equiv="x-ua-compatible" content="ie=edge">
+      
+      
+      
+      
+        <meta name="lang:clipboard.copy" content="Copy to clipboard">
+      
+        <meta name="lang:clipboard.copied" content="Copied to clipboard">
+      
+        <meta name="lang:search.language" content="en">
+      
+        <meta name="lang:search.result.none" content="No matching documents">
+      
+        <meta name="lang:search.result.one" content="1 matching document">
+      
+        <meta name="lang:search.result.other" content="# matching documents">
+      
+        <meta name="lang:search.tokenizer" content="[\s\-]+">
+      
+      <link rel="shortcut icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-0.17.2, mkdocs-material-2.2.5">
+    
+    
+      
+        <title>Middleware - Rodux Documentation</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/application.bcabdff3.css">
+      
+        <link rel="stylesheet" href="../../assets/stylesheets/application-palette.792431c1.css">
+      
+    
+    
+      <script src="../../assets/javascripts/modernizr.1aa3b519.js"></script>
+    
+    
+      
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,400i,700|Roboto+Mono">
+        <style>body,input{font-family:"Roboto","Helvetica Neue",Helvetica,Arial,sans-serif}code,kbd,pre{font-family:"Roboto Mono","Courier New",Courier,monospace}</style>
+      
+      <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    
+    
+    
+  </head>
+  
+    
+    
+    
+      <body data-md-color-primary="light-blue" data-md-color-accent="light-blue">
+    
+  
+    <svg class="md-svg">
+      <defs>
+        
+        
+          <svg xmlns="http://www.w3.org/2000/svg" width="416" height="448" viewBox="0 0 416 448" id="github"><path fill="currentColor" d="M160 304q0 10-3.125 20.5t-10.75 19T128 352t-18.125-8.5-10.75-19T96 304t3.125-20.5 10.75-19T128 256t18.125 8.5 10.75 19T160 304zm160 0q0 10-3.125 20.5t-10.75 19T288 352t-18.125-8.5-10.75-19T256 304t3.125-20.5 10.75-19T288 256t18.125 8.5 10.75 19T320 304zm40 0q0-30-17.25-51T296 232q-10.25 0-48.75 5.25Q229.5 240 208 240t-39.25-2.75Q130.75 232 120 232q-29.5 0-46.75 21T56 304q0 22 8 38.375t20.25 25.75 30.5 15 35 7.375 37.25 1.75h42q20.5 0 37.25-1.75t35-7.375 30.5-15 20.25-25.75T360 304zm56-44q0 51.75-15.25 82.75-9.5 19.25-26.375 33.25t-35.25 21.5-42.5 11.875-42.875 5.5T212 416q-19.5 0-35.5-.75t-36.875-3.125-38.125-7.5-34.25-12.875T37 371.5t-21.5-28.75Q0 312 0 260q0-59.25 34-99-6.75-20.5-6.75-42.5 0-29 12.75-54.5 27 0 47.5 9.875t47.25 30.875Q171.5 96 212 96q37 0 70 8 26.25-20.5 46.75-30.25T376 64q12.75 25.5 12.75 54.5 0 21.75-6.75 42 34 40 34 99.5z"/></svg>
+        
+      </defs>
+    </svg>
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="drawer">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="search">
+    <label class="md-overlay" data-md-component="overlay" for="drawer"></label>
+    
+      <header class="md-header" data-md-component="header">
+  <nav class="md-header-nav md-grid">
+    <div class="md-flex">
+      <div class="md-flex__cell md-flex__cell--shrink">
+        <a href="../.." title="Rodux Documentation" class="md-header-nav__button md-logo">
+          
+            <i class="md-icon"></i>
+          
+        </a>
+      </div>
+      <div class="md-flex__cell md-flex__cell--shrink">
+        <label class="md-icon md-icon--menu md-header-nav__button" for="drawer"></label>
+      </div>
+      <div class="md-flex__cell md-flex__cell--stretch">
+        <div class="md-flex__ellipsis md-header-nav__title" data-md-component="title">
+          
+            
+              <span class="md-header-nav__topic">
+                Rodux Documentation
+              </span>
+              <span class="md-header-nav__topic">
+                Middleware
+              </span>
+            
+          
+        </div>
+      </div>
+      <div class="md-flex__cell md-flex__cell--shrink">
+        
+          
+            <label class="md-icon md-icon--search md-header-nav__button" for="search"></label>
+            
+<div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="search"></label>
+  <div class="md-search__inner">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" required placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="query">
+      <label class="md-icon md-search__icon" for="search"></label>
+      <button type="reset" class="md-icon md-search__icon" data-md-component="reset">&#xE5CD;</button>
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="result">
+          <div class="md-search-result__meta">
+            Type to start searching
+          </div>
+          <ol class="md-search-result__list"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+          
+        
+      </div>
+      
+        <div class="md-flex__cell md-flex__cell--shrink">
+          <div class="md-header-nav__source">
+            
+
+
+  
+
+
+  <a href="https://github.com/Roblox/rodux/" title="Go to repository" class="md-source" data-md-source="github">
+    
+      <div class="md-source__icon">
+        <svg viewBox="0 0 24 24" width="24" height="24">
+          <use xlink:href="#github" width="24" height="24"></use>
+        </svg>
+      </div>
+    
+    <div class="md-source__repository">
+      Roblox/rodux
+    </div>
+  </a>
+
+          </div>
+        </div>
+      
+    </div>
+  </nav>
+</header>
+    
+    <div class="md-container">
+      
+        
+      
+      
+      <main class="md-main">
+        <div class="md-main__inner md-grid" data-md-component="container">
+          
+            
+              <div class="md-sidebar md-sidebar--primary" data-md-component="navigation">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    <nav class="md-nav md-nav--primary" data-md-level="0">
+  <label class="md-nav__title md-nav__title--site" for="drawer">
+    <span class="md-nav__button md-logo">
+      
+        <i class="md-icon"></i>
+      
+    </span>
+    Rodux Documentation
+  </label>
+  
+    <div class="md-nav__source">
+      
+
+
+  
+
+
+  <a href="https://github.com/Roblox/rodux/" title="Go to repository" class="md-source" data-md-source="github">
+    
+      <div class="md-source__icon">
+        <svg viewBox="0 0 24 24" width="24" height="24">
+          <use xlink:href="#github" width="24" height="24"></use>
+        </svg>
+      </div>
+    
+    <div class="md-source__repository">
+      Roblox/rodux
+    </div>
+  </a>
+
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../.." title="Home" class="md-nav__link">
+      Home
+    </a>
+  </li>
+
+    
+      
+      
+      
+
+  
+
+
+  <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+    
+      <input class="md-toggle md-nav__toggle" data-md-toggle="nav-2" type="checkbox" id="nav-2" checked>
+    
+    <label class="md-nav__link" for="nav-2">
+      Guide
+    </label>
+    <nav class="md-nav" data-md-component="collapsible" data-md-level="1">
+      <label class="md-nav__title" for="nav-2">
+        Guide
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../state/" title="State" class="md-nav__link">
+      State
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../actions/" title="Actions" class="md-nav__link">
+      Actions
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../reducers/" title="Reducers" class="md-nav__link">
+      Reducers
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../modularity/" title="Modularity" class="md-nav__link">
+      Modularity
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+  
+
+
+  <li class="md-nav__item md-nav__item--active">
+    
+    <input class="md-toggle md-nav__toggle" data-md-toggle="toc" type="checkbox" id="toc">
+    
+      
+    
+    
+      <label class="md-nav__link md-nav__link--active" for="toc">
+        Middleware
+      </label>
+    
+    <a href="./" title="Middleware" class="md-nav__link md-nav__link--active">
+      Middleware
+    </a>
+    
+      
+<nav class="md-nav md-nav--secondary">
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="toc">Table of contents</label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#using-middlewares" title="Using middlewares" class="md-nav__link">
+    Using middlewares
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#why-are-the-middlewares-in-reverse-order" title="Why are the middlewares in reverse order?" class="md-nav__link">
+    Why are the middlewares in reverse order?
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#built-in-middlewares" title="Built-in middlewares" class="md-nav__link">
+    Built-in middlewares
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#loggermiddleware" title="loggerMiddleware" class="md-nav__link">
+    loggerMiddleware
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#why-is-loggermiddleware-called" title="Why is loggerMiddleware called?" class="md-nav__link">
+    Why is loggerMiddleware called?
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#thunkmiddleware" title="thunkMiddleware" class="md-nav__link">
+    thunkMiddleware
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#writing-your-own-middlewares" title="Writing your own middlewares" class="md-nav__link">
+    Writing your own middlewares
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#a-simple-example-printing-the-type-field" title="A simple example: printing the type field" class="md-nav__link">
+    A simple example: printing the type field
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#canceling-actions" title="Canceling actions" class="md-nav__link">
+    Canceling actions
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#modifying-actions-pascalcased-type" title="Modifying actions: PascalCased Type" class="md-nav__link">
+    Modifying actions: PascalCased Type
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+      
+      
+    </ul>
+  
+</nav>
+    
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item">
+    <a href="../../api-reference/" title="API Reference" class="md-nav__link">
+      API Reference
+    </a>
+  </li>
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="toc">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+<nav class="md-nav md-nav--secondary">
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="toc">Table of contents</label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#using-middlewares" title="Using middlewares" class="md-nav__link">
+    Using middlewares
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#why-are-the-middlewares-in-reverse-order" title="Why are the middlewares in reverse order?" class="md-nav__link">
+    Why are the middlewares in reverse order?
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#built-in-middlewares" title="Built-in middlewares" class="md-nav__link">
+    Built-in middlewares
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#loggermiddleware" title="loggerMiddleware" class="md-nav__link">
+    loggerMiddleware
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#why-is-loggermiddleware-called" title="Why is loggerMiddleware called?" class="md-nav__link">
+    Why is loggerMiddleware called?
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#thunkmiddleware" title="thunkMiddleware" class="md-nav__link">
+    thunkMiddleware
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#writing-your-own-middlewares" title="Writing your own middlewares" class="md-nav__link">
+    Writing your own middlewares
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#a-simple-example-printing-the-type-field" title="A simple example: printing the type field" class="md-nav__link">
+    A simple example: printing the type field
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#canceling-actions" title="Canceling actions" class="md-nav__link">
+    Canceling actions
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#modifying-actions-pascalcased-type" title="Modifying actions: PascalCased Type" class="md-nav__link">
+    Modifying actions: PascalCased Type
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+      
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          <div class="md-content">
+            <article class="md-content__inner md-typeset">
+              
+                
+                  <a href="https://github.com/Roblox/rodux/edit/master/docs/guide/middleware.md" title="Edit this page" class="md-icon md-content__icon">&#xE3C9;</a>
+                
+                
+                <h1 id="middleware">Middleware<a class="headerlink" href="#middleware" title="Permanent link">&para;</a></h1>
+<p>Middleware is a way to modify the behavior of a store by altering the dispatch behavior. Middlewares can modify an action, consume it entirely (stopping it from being dispatched), or just do something else on top of the action. They do this by overriding the store's <code>dispatch</code> method entirely. A middleware is a factory for new <code>dispatch</code> methods, to rephrase things.</p>
+<h2 id="using-middlewares">Using middlewares<a class="headerlink" href="#using-middlewares" title="Permanent link">&para;</a></h2>
+<p>Middlewares can be used by specifying them in an array in the third argument of <code>Store.new</code>:</p>
+<div class="codehilite"><pre><span></span><span class="kd">local</span> <span class="n">store</span> <span class="o">=</span> <span class="n">Rodux</span><span class="p">.</span><span class="n">Store</span><span class="p">.</span><span class="n">new</span><span class="p">(</span>
+    <span class="n">reducer</span><span class="p">,</span>
+    <span class="n">initialState</span><span class="p">,</span>
+    <span class="p">{</span> <span class="n">middleware3</span><span class="p">,</span> <span class="n">middleware2</span><span class="p">,</span> <span class="n">middleware1</span> <span class="p">}</span>
+<span class="p">)</span>
+</pre></div>
+
+<div class="admonition question">
+<p class="admonition-title">Question</p>
+<h4 id="why-are-the-middlewares-in-reverse-order">Why are the middlewares in reverse order?<a class="headerlink" href="#why-are-the-middlewares-in-reverse-order" title="Permanent link">&para;</a></h4>
+<p>Rodux evaluates its middlewares in last-in-first-out order: the last argument is the one that's invoked first. The order of your middlewares is important.</p>
+</div>
+<p>Once you've done this, the middlewares are active and will take effect whenever you use the store's <code>dispatch</code> method.</p>
+<h2 id="built-in-middlewares">Built-in middlewares<a class="headerlink" href="#built-in-middlewares" title="Permanent link">&para;</a></h2>
+<p>Rodux comes with two built-in middlewares: <code>loggerMiddleware</code> and <code>thunkMiddleware</code>.</p>
+<h3 id="loggermiddleware">loggerMiddleware<a class="headerlink" href="#loggermiddleware" title="Permanent link">&para;</a></h3>
+<p><code>loggerMiddleware</code> is a very simple middleware that lets you log changes to your state. It is exposed as <code>Rodux.loggerMiddleware</code> from the main Rodux module. Whenever an action is dispatched, it will print two things:</p>
+<ul>
+<li>The action in its entirety</li>
+<li>The state after the action was reduced</li>
+</ul>
+<p>To use it, specify it like this:</p>
+<div class="codehilite"><pre><span></span><span class="kd">local</span> <span class="n">store</span> <span class="o">=</span> <span class="n">Rodux</span><span class="p">.</span><span class="n">Store</span><span class="p">.</span><span class="n">new</span><span class="p">(</span>
+    <span class="n">reducer</span><span class="p">,</span> 
+    <span class="n">initialState</span><span class="p">,</span> 
+    <span class="p">{</span> <span class="n">Rodux</span><span class="p">.</span><span class="n">loggerMiddleware</span><span class="p">()</span> <span class="p">}</span>
+<span class="p">)</span>
+</pre></div>
+
+<div class="admonition question">
+<p class="admonition-title">Question</p>
+<h4 id="why-is-loggermiddleware-called">Why is <code>loggerMiddleware</code> called?<a class="headerlink" href="#why-is-loggermiddleware-called" title="Permanent link">&para;</a></h4>
+<p><code>loggerMiddleware</code> is called because it allows you to change the function used to print to the output. For example, if you wanted to print all the changes to your store as warnings, you could do this:</p>
+<div class="codehilite"><pre><span></span><span class="kd">local</span> <span class="n">store</span> <span class="o">=</span> <span class="n">Rodux</span><span class="p">.</span><span class="n">Store</span><span class="p">.</span><span class="n">new</span><span class="p">(</span>
+    <span class="n">reducer</span><span class="p">,</span> 
+    <span class="n">initialState</span><span class="p">,</span> 
+    <span class="p">{</span> <span class="n">Rodux</span><span class="p">.</span><span class="n">loggerMiddleware</span><span class="p">(</span><span class="n">warn</span><span class="p">)</span> <span class="p">}</span>
+<span class="p">)</span>
+</pre></div>
+
+</div>
+<p>Now, whenever you dispatch an action, you'll see something like the following in the output window:</p>
+<div class="codehilite"><pre><span></span>Action dispatched: {
+        type = &quot;test&quot;; (string)
+        payload = 1; (number)
+    }
+State changed to: {
+        testValue = 1; (number)
+    }
+</pre></div>
+
+<h3 id="thunkmiddleware">thunkMiddleware<a class="headerlink" href="#thunkmiddleware" title="Permanent link">&para;</a></h3>
+<p><code>thunkMiddleware</code> is a middleware that lets you use thunks - it lets you dispatch a function to your store, which will be run. The function can do anything, and can dispatch new actions at will. Thunks are commonly used for asynchronous, long-running operations, like reading from a data store or performing a HTTP request.</p>
+<p>To use it, just include it in your <code>middlewares</code> table:</p>
+<div class="codehilite"><pre><span></span><span class="kd">local</span> <span class="n">store</span> <span class="o">=</span> <span class="n">Rodux</span><span class="p">.</span><span class="n">Store</span><span class="p">.</span><span class="n">new</span><span class="p">(</span>
+    <span class="n">reducer</span><span class="p">,</span> 
+    <span class="n">initialState</span><span class="p">,</span> 
+    <span class="p">{</span> <span class="n">Rodux</span><span class="p">.</span><span class="n">thunkMiddleware</span> <span class="p">}</span>
+<span class="p">)</span>
+</pre></div>
+
+<p>Once you've done that, you can dispatch a function just like you would an action with the store's <code>dispatch</code> method:</p>
+<div class="codehilite"><pre><span></span><span class="n">store</span><span class="p">:</span><span class="n">dispatch</span><span class="p">(</span><span class="kr">function</span><span class="p">(</span><span class="n">store</span><span class="p">)</span>
+    <span class="c1">-- Do something that takes a while</span>
+
+    <span class="c1">-- Then dispatch an action to tell the store about the result!</span>
+    <span class="n">store</span><span class="p">:</span><span class="n">dispatch</span><span class="p">({</span>
+        <span class="nb">type</span> <span class="o">=</span> <span class="s2">&quot;someAction&quot;</span>
+    <span class="p">})</span>
+<span class="kr">end</span><span class="p">)</span>
+</pre></div>
+
+<h2 id="writing-your-own-middlewares">Writing your own middlewares<a class="headerlink" href="#writing-your-own-middlewares" title="Permanent link">&para;</a></h2>
+<p>There's nothing magic about writing middlewares! Here's how you can write your own.</p>
+<h3 id="a-simple-example-printing-the-type-field">A simple example: printing the type field<a class="headerlink" href="#a-simple-example-printing-the-type-field" title="Permanent link">&para;</a></h3>
+<p>Here's a simple middleware that just prints the action's <code>type</code> field:</p>
+<div class="codehilite"><pre><span></span><span class="kd">local</span> <span class="kr">function</span> <span class="nf">printType</span><span class="p">(</span><span class="nb">next</span><span class="p">)</span>
+    <span class="kr">return</span> <span class="kr">function</span><span class="p">(</span><span class="n">store</span><span class="p">,</span> <span class="n">action</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="n">action</span><span class="p">.</span><span class="n">type</span><span class="p">)</span>
+        <span class="nb">next</span><span class="p">(</span><span class="n">store</span><span class="p">,</span> <span class="n">action</span><span class="p">)</span>
+    <span class="kr">end</span>
+<span class="kr">end</span>
+</pre></div>
+
+<p>Breaking it down:</p>
+<ul>
+<li><code>printType</code> is a function that takes one argument: <code>next</code>. This is the next middleware in the chain. At the end of the chain lies the original <code>dispatch</code> method.</li>
+<li><code>printType</code> returns a new function that takes two arguments: <code>store</code> and <code>action</code>. These arguments are the <em>exact signature</em> of the original <code>dispatch</code> method.</li>
+<li>The function returned from <code>printType</code> prints the action's type, then calls <code>next</code> to pass the action on.</li>
+</ul>
+<p>To use this function, specify it in the third argument to <code>Store.new</code>:</p>
+<div class="codehilite"><pre><span></span><span class="kd">local</span> <span class="kr">function</span> <span class="nf">reducer</span><span class="p">(</span><span class="n">state</span><span class="p">,</span> <span class="n">action</span><span class="p">)</span>
+    <span class="c1">-- Just return the same state, for demonstrational purposes.</span>
+    <span class="kr">return</span> <span class="n">state</span>
+<span class="kr">end</span>
+
+<span class="kd">local</span> <span class="n">store</span> <span class="o">=</span> <span class="n">Store</span><span class="p">.</span><span class="n">new</span><span class="p">(</span><span class="n">reducer</span><span class="p">,</span> <span class="p">{},</span> <span class="p">{</span> <span class="n">printType</span> <span class="p">})</span>
+
+<span class="n">store</span><span class="p">:</span><span class="n">dispatch</span><span class="p">({</span>
+    <span class="nb">type</span> <span class="o">=</span> <span class="s2">&quot;testAction&quot;</span>
+<span class="p">})</span>
+</pre></div>
+
+<p>Run this code and you'll see this in the output:
+<div class="codehilite"><pre><span></span>testAction
+</pre></div></p>
+<h3 id="canceling-actions">Canceling actions<a class="headerlink" href="#canceling-actions" title="Permanent link">&para;</a></h3>
+<p>Nothing says you <em>have</em> to call <code>next</code> at all! Here's a middleware that just swallows up any action that it comes across. These actions never modify the store's state.</p>
+<div class="codehilite"><pre><span></span><span class="kd">local</span> <span class="kr">function</span> <span class="nf">swallowAction</span><span class="p">(</span><span class="nb">next</span><span class="p">)</span>
+    <span class="kr">return</span> <span class="kr">function</span><span class="p">(</span><span class="n">store</span><span class="p">,</span> <span class="n">action</span><span class="p">)</span>
+        <span class="c1">-- Do nothing! Since next is not called, the action never moves on.</span>
+    <span class="kr">end</span>
+<span class="kr">end</span>
+</pre></div>
+
+<h3 id="modifying-actions-pascalcased-type">Modifying actions: PascalCased Type<a class="headerlink" href="#modifying-actions-pascalcased-type" title="Permanent link">&para;</a></h3>
+<p>Similarly, you don't always have to call <code>next</code> with the same action. Say you prefer using <code>PascalCase</code> for your actions. Rodux requires that your actions have a <code>type</code> field, so your code style is being broken! Middlewares to the rescue - you can replace the action so that it fits the structure Rodux is expecting, without having to make compromises about your casing.</p>
+<div class="codehilite"><pre><span></span><span class="kd">local</span> <span class="kr">function</span> <span class="nf">pascalCaseType</span><span class="p">(</span><span class="nb">next</span><span class="p">)</span>
+    <span class="kr">return</span> <span class="kr">function</span><span class="p">(</span><span class="n">store</span><span class="p">,</span> <span class="n">action</span><span class="p">)</span>
+        <span class="c1">-- If the action has a Type field, substitute it with an identical action</span>
+        <span class="c1">-- that substitutes type for Type!</span>
+        <span class="kr">if</span> <span class="n">action</span><span class="p">.</span><span class="n">Type</span> <span class="kr">then</span>
+            <span class="kd">local</span> <span class="n">newAction</span> <span class="o">=</span> <span class="p">{}</span>
+
+            <span class="kr">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">value</span> <span class="kr">in</span> <span class="nb">pairs</span><span class="p">(</span><span class="n">action</span><span class="p">)</span> <span class="kr">do</span>
+                <span class="c1">-- Change the casing on the Type field</span>
+                <span class="kr">if</span> <span class="n">key</span> <span class="o">==</span> <span class="s2">&quot;Type&quot;</span> <span class="kr">then</span>
+                    <span class="n">newAction</span><span class="p">.</span><span class="n">type</span> <span class="o">=</span> <span class="n">value</span>
+                <span class="c1">-- Everything else can stay as-is</span>
+                <span class="kr">else</span>
+                    <span class="n">newAction</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="n">value</span>
+                <span class="kr">end</span>
+            <span class="kr">end</span>
+
+            <span class="c1">-- Pass the new action on!</span>
+            <span class="nb">next</span><span class="p">(</span><span class="n">store</span><span class="p">,</span> <span class="n">newAction</span><span class="p">)</span>
+        <span class="c1">-- Otherwise, just send the action on!</span>
+        <span class="kr">else</span>
+            <span class="nb">next</span><span class="p">(</span><span class="n">store</span><span class="p">,</span> <span class="n">action</span><span class="p">)</span>
+        <span class="kr">end</span>
+    <span class="kr">end</span>
+<span class="kr">end</span>
+</pre></div>
+                
+                  
+                
+              
+              
+                
+              
+            </article>
+          </div>
+        </div>
+      </main>
+      
+        
+<footer class="md-footer">
+  
+    <div class="md-footer-nav">
+      <nav class="md-footer-nav__inner md-grid">
+        
+          <a href="../modularity/" title="Modularity" class="md-flex md-footer-nav__link md-footer-nav__link--prev" rel="prev">
+            <div class="md-flex__cell md-flex__cell--shrink">
+              <i class="md-icon md-icon--arrow-back md-footer-nav__button"></i>
+            </div>
+            <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title">
+              <span class="md-flex__ellipsis">
+                <span class="md-footer-nav__direction">
+                  Previous
+                </span>
+                Modularity
+              </span>
+            </div>
+          </a>
+        
+        
+          <a href="../../api-reference/" title="API Reference" class="md-flex md-footer-nav__link md-footer-nav__link--next" rel="next">
+            <div class="md-flex__cell md-flex__cell--stretch md-footer-nav__title">
+              <span class="md-flex__ellipsis">
+                <span class="md-footer-nav__direction">
+                  Next
+                </span>
+                API Reference
+              </span>
+            </div>
+            <div class="md-flex__cell md-flex__cell--shrink">
+              <i class="md-icon md-icon--arrow-forward md-footer-nav__button"></i>
+            </div>
+          </a>
+        
+      </nav>
+    </div>
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-footer-copyright">
+        
+        powered by
+        <a href="http://www.mkdocs.org">MkDocs</a>
+        and
+        <a href="https://squidfunk.github.io/mkdocs-material/">
+          Material for MkDocs</a>
+      </div>
+      
+        
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    
+      <script src="../../assets/javascripts/application.6cdc17f0.js"></script>
+      
+      <script>app.initialize({version:"0.17.2",url:{base:"../.."}})</script>
+      
+    
+    
+      
+    
+  </body>
+</html>

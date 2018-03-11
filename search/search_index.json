@@ -1,0 +1,249 @@
+{
+    "docs": [
+        {
+            "location": "/",
+            "text": "Home\n\u00b6\n\n\nRodux is a central state management library that heavily mirrors Facebook's \nRedux\n library.",
+            "title": "Home"
+        },
+        {
+            "location": "/#home",
+            "text": "Rodux is a central state management library that heavily mirrors Facebook's  Redux  library.",
+            "title": "Home"
+        },
+        {
+            "location": "/guide/state/",
+            "text": "State\n\u00b6\n\n\nIn Rodux, the \nstate\n of your game is one large table that contains everything that is currently happening. The state is the \nsingle source of truth\n in your game. This makes it easy to:\n\n\n\n\nSave and load state\n\n\nDebug your game\n\n\nUndo/redo actions\n\n\n\n\nWhat to put in state\n\u00b6\n\n\nAnything that changes in your game should go in your state table. You should be able to look at your state table and determine exactly what was going on at a given point in time, without knowing anything else.\n\n\nConstants and configuration values that don't ever change in your game don't need to go in your state table.\n\n\nState is read-only\n\u00b6\n\n\nIn Rodux, state is \nread-only\n - it cannot be changed directly. The only way to change your state is by dispatching an \naction\n. This means that every change to your state flows down a single path, which can be easily manipulated. Logging state changes, for example, only needs to happen in one place, instead of sprinkling \nprint\n statements across your entire codebase.\n\n\n\n\nQuestion\n\n\nWhy is state immutable?\n\u00b6\n\n\nState is immutable because it makes it very, very easy to determine if state changed. If state was mutable, you would need to traverse the entire state tree, which can be very slow in large games, to find out if something changed. Since state is immutable, you can just do something like:\n\n\nif\n \nstate\n \n~=\n \noldState\n \nthen\n\n    \n-- State changed, do something!\n\n\nend\n\n\n\n\n\nThis also makes it very easy to undo an action - just save the old state value, and replace the current state with the old state. That state will always be valid, since it's never changed, only replaced!\n\n\n\n\nState is updated using pure functions\n\u00b6\n\n\nSince state is read-only, the way to change it is with \npure functions\n, known in Rodux as \nreducers\n. Reducers take the old state and an action, and return a brand-new state table. They do not change the old state - they make a new state table.",
+            "title": "State"
+        },
+        {
+            "location": "/guide/state/#state",
+            "text": "In Rodux, the  state  of your game is one large table that contains everything that is currently happening. The state is the  single source of truth  in your game. This makes it easy to:   Save and load state  Debug your game  Undo/redo actions",
+            "title": "State"
+        },
+        {
+            "location": "/guide/state/#what-to-put-in-state",
+            "text": "Anything that changes in your game should go in your state table. You should be able to look at your state table and determine exactly what was going on at a given point in time, without knowing anything else.  Constants and configuration values that don't ever change in your game don't need to go in your state table.",
+            "title": "What to put in state"
+        },
+        {
+            "location": "/guide/state/#state-is-read-only",
+            "text": "In Rodux, state is  read-only  - it cannot be changed directly. The only way to change your state is by dispatching an  action . This means that every change to your state flows down a single path, which can be easily manipulated. Logging state changes, for example, only needs to happen in one place, instead of sprinkling  print  statements across your entire codebase.   Question",
+            "title": "State is read-only"
+        },
+        {
+            "location": "/guide/state/#why-is-state-immutable",
+            "text": "State is immutable because it makes it very, very easy to determine if state changed. If state was mutable, you would need to traverse the entire state tree, which can be very slow in large games, to find out if something changed. Since state is immutable, you can just do something like:  if   state   ~=   oldState   then \n     -- State changed, do something!  end   This also makes it very easy to undo an action - just save the old state value, and replace the current state with the old state. That state will always be valid, since it's never changed, only replaced!",
+            "title": "Why is state immutable?"
+        },
+        {
+            "location": "/guide/state/#state-is-updated-using-pure-functions",
+            "text": "Since state is read-only, the way to change it is with  pure functions , known in Rodux as  reducers . Reducers take the old state and an action, and return a brand-new state table. They do not change the old state - they make a new state table.",
+            "title": "State is updated using pure functions"
+        },
+        {
+            "location": "/guide/actions/",
+            "text": "Actions\n\u00b6\n\n\nActions\n are bundles of data sent from your game to your store. They are tables with a single required field: \ntype\n. The \ntype\n field is used to describe the type of the action, which determines what it does. It is recommended, but not required, that \ntype\n be a string, for easy debugging. You can dispatch actions to the store using its \ndispatch\n method.\n\n\nHere's an example action that tells the store that a player joined:\n\n\nlocal\n \nPLAYER_JOIN\n \n=\n \n\"playerJoin\"\n\n\n\nlocal\n \naction\n \n=\n \n{\n\n    \ntype\n \n=\n \nPLAYER_JOIN\n,\n\n    \nplayer\n \n=\n \nnewPlayer\n,\n\n\n}\n\n\n\n\n\n\n\nQuestion\n\n\nDo types have to be defined as variables first?\n\u00b6\n\n\nNo, not at all! It is a good practice, however, because it is easier to change type names and to catch mistakes.\n\n\n\n\nAction creators\n\u00b6\n\n\nAction creators\n are functions that create actions for you. This allows you to validate your action arguments before the action is dispatched, add extra data to the action, and normalize your inputs. Here's an action creator for the player join action above:\n\n\nlocal\n \nfunction\n \nplayerJoin\n(\nplayer\n)\n\n    \nreturn\n \n{\n\n        \ntype\n \n=\n \nPLAYER_JOIN\n,\n\n        \nplayer\n \n=\n \nplayer\n,\n\n    \n}\n\n\nend\n\n\n\n\n\nAnd here's it in use:\n\n\n-- somewhere inside an event handler\n\n\nstore\n:\ndispatch\n(\nplayerJoin\n(\nplayer\n))",
+            "title": "Actions"
+        },
+        {
+            "location": "/guide/actions/#actions",
+            "text": "Actions  are bundles of data sent from your game to your store. They are tables with a single required field:  type . The  type  field is used to describe the type of the action, which determines what it does. It is recommended, but not required, that  type  be a string, for easy debugging. You can dispatch actions to the store using its  dispatch  method.  Here's an example action that tells the store that a player joined:  local   PLAYER_JOIN   =   \"playerJoin\"  local   action   =   { \n     type   =   PLAYER_JOIN , \n     player   =   newPlayer ,  }    Question",
+            "title": "Actions"
+        },
+        {
+            "location": "/guide/actions/#do-types-have-to-be-defined-as-variables-first",
+            "text": "No, not at all! It is a good practice, however, because it is easier to change type names and to catch mistakes.",
+            "title": "Do types have to be defined as variables first?"
+        },
+        {
+            "location": "/guide/actions/#action-creators",
+            "text": "Action creators  are functions that create actions for you. This allows you to validate your action arguments before the action is dispatched, add extra data to the action, and normalize your inputs. Here's an action creator for the player join action above:  local   function   playerJoin ( player ) \n     return   { \n         type   =   PLAYER_JOIN , \n         player   =   player , \n     }  end   And here's it in use:  -- somewhere inside an event handler  store : dispatch ( playerJoin ( player ))",
+            "title": "Action creators"
+        },
+        {
+            "location": "/guide/reducers/",
+            "text": "Reducers\n\u00b6\n\n\nA \nreducer\n is a function that transforms the \nstate\n in response to \nactions\n. Reducers should be pure functions - given the same inputs, they should always have the same output. The reducer signature is:\n\n\nreducer(state, action) -> newState\n\n\n\n\nReducers take the current state and an action, and return a new state table. It is important that the reducer \ndoes not mutate the state\n. It should return a new state, instead. This means that this reducer, which changes its \nstate\n argument, is incorrect:\n\n\nlocal\n \nfunction\n \nreducer\n(\nstate\n,\n \naction\n)\n\n    \nstate\n.\nvalue\n \n=\n \naction\n.\nvalue\n\n\n    \nreturn\n \nstate\n\n\nend\n\n\n\n\n\nInstead of writing this, you should instead write:\n\n\nlocal\n \nfunction\n \nreducer\n(\nstate\n,\n \naction\n)\n\n    \nlocal\n \nnewState\n \n=\n \n{}\n\n\n    \nfor\n \nkey\n,\n \nvalue\n \nin\n \npairs\n(\nstate\n)\n \ndo\n\n        \nnewState\n[\nkey\n]\n \n=\n \nvalue\n\n    \nend\n\n\n    \nnewState\n.\nvalue\n \n=\n \naction\n.\nvalue\n\n\n    \nreturn\n \nnewState\n\n\nend\n\n\n\n\n\nInitializing state: the \n@@INIT\n action\n\u00b6\n\n\nWhen you first create a store, Rodux will automatically dispatch an action with a type of \n@@INIT\n before any other actions are dispatched. Your reducer should use this action to set up the state correctly:\n\n\nlocal\n \nfunction\n \nreducer\n(\nstate\n,\n \naction\n)\n\n    \nif\n \naction\n.\ntype\n \n==\n \n\"@@INIT\"\n \nthen\n\n        \nreturn\n \n{\n\n            \nvalue\n \n=\n \n\"default\"\n,\n\n            \n-- ...\n\n        \n}\n\n    \nend\n\n\n    \n-- Do something with the action\n\n\nend\n\n\n\n\n\n\n\nQuestion\n\n\nIf there's an initialization action, what's the point of supplying an initial state?\n\u00b6\n\n\nThey do different things! The initialization action is for setting up parts of your state that need to be set up at run-time. The initial state that you can supply when creating a store is for loading your state from storage.\n\n\n\n\nHandling more than one type of action\n\u00b6\n\n\nMost of the time, your reducer needs to handle many types of actions. You can use the \ntype\n field of the action for this:\n\n\nlocal\n \nfunction\n \nreducer\n(\nstate\n,\n \naction\n)\n\n    \nif\n \naction\n.\ntype\n \n==\n \n\"someAction\"\n \nthen\n\n        \n-- Do something with this action\n\n    \nelseif\n \naction\n.\ntype\n \n==\n \n\"otherAction\"\n \nthen\n\n        \n-- Do something with another action\n\n    \nelse\n\n        \n-- Don't know how to handle this action; don't change the state at all\n\n        \nreturn\n \nstate\n\n    \nend\n\n\nend\n\n\n\n\n\n\n\nQuestion\n\n\nWhy is the reducer returning the same state value if it can't handle the action?\n\u00b6\n\n\nYou're allowed to return the same state \nprovided it has not changed\n. If the state doesn't change at all, the existing state is still valid, and can be returned from the reducer.\n\n\n\n\nWriting out \nif-elseif-else\n blocks can be inconvenient at times. To simplify these constructs, Rodux provides a \ncreateReducer\n function. This \ncreateReducer\n call is equivalent to the reducer above:\n\n\nlocal\n \nreducer\n \n=\n \nRodux\n.\ncreateReducer\n({\n\n    \nsomeAction\n \n=\n \nfunction\n(\nstate\n,\n \naction\n)\n\n        \n-- Do something with someAction\n\n    \nend\n,\n\n    \notherAction\n \n=\n \nfunction\n(\nstate\n,\n \naction\n)\n\n        \n-- Do something with otherAction\n\n    \nend\n,\n\n\n})",
+            "title": "Reducers"
+        },
+        {
+            "location": "/guide/reducers/#reducers",
+            "text": "A  reducer  is a function that transforms the  state  in response to  actions . Reducers should be pure functions - given the same inputs, they should always have the same output. The reducer signature is:  reducer(state, action) -> newState  Reducers take the current state and an action, and return a new state table. It is important that the reducer  does not mutate the state . It should return a new state, instead. This means that this reducer, which changes its  state  argument, is incorrect:  local   function   reducer ( state ,   action ) \n     state . value   =   action . value \n\n     return   state  end   Instead of writing this, you should instead write:  local   function   reducer ( state ,   action ) \n     local   newState   =   {} \n\n     for   key ,   value   in   pairs ( state )   do \n         newState [ key ]   =   value \n     end \n\n     newState . value   =   action . value \n\n     return   newState  end",
+            "title": "Reducers"
+        },
+        {
+            "location": "/guide/reducers/#initializing-state-the-init-action",
+            "text": "When you first create a store, Rodux will automatically dispatch an action with a type of  @@INIT  before any other actions are dispatched. Your reducer should use this action to set up the state correctly:  local   function   reducer ( state ,   action ) \n     if   action . type   ==   \"@@INIT\"   then \n         return   { \n             value   =   \"default\" , \n             -- ... \n         } \n     end \n\n     -- Do something with the action  end    Question",
+            "title": "Initializing state: the @@INIT action"
+        },
+        {
+            "location": "/guide/reducers/#if-theres-an-initialization-action-whats-the-point-of-supplying-an-initial-state",
+            "text": "They do different things! The initialization action is for setting up parts of your state that need to be set up at run-time. The initial state that you can supply when creating a store is for loading your state from storage.",
+            "title": "If there's an initialization action, what's the point of supplying an initial state?"
+        },
+        {
+            "location": "/guide/reducers/#handling-more-than-one-type-of-action",
+            "text": "Most of the time, your reducer needs to handle many types of actions. You can use the  type  field of the action for this:  local   function   reducer ( state ,   action ) \n     if   action . type   ==   \"someAction\"   then \n         -- Do something with this action \n     elseif   action . type   ==   \"otherAction\"   then \n         -- Do something with another action \n     else \n         -- Don't know how to handle this action; don't change the state at all \n         return   state \n     end  end    Question",
+            "title": "Handling more than one type of action"
+        },
+        {
+            "location": "/guide/reducers/#why-is-the-reducer-returning-the-same-state-value-if-it-cant-handle-the-action",
+            "text": "You're allowed to return the same state  provided it has not changed . If the state doesn't change at all, the existing state is still valid, and can be returned from the reducer.   Writing out  if-elseif-else  blocks can be inconvenient at times. To simplify these constructs, Rodux provides a  createReducer  function. This  createReducer  call is equivalent to the reducer above:  local   reducer   =   Rodux . createReducer ({ \n     someAction   =   function ( state ,   action ) \n         -- Do something with someAction \n     end , \n     otherAction   =   function ( state ,   action ) \n         -- Do something with otherAction \n     end ,  })",
+            "title": "Why is the reducer returning the same state value if it can't handle the action?"
+        },
+        {
+            "location": "/guide/modularity/",
+            "text": "Modularity\n\u00b6\n\n\nDespite Rodux's requirement that your state be centralized in a single object, modular code is still possible!\n\n\nA lot of the time, you'll have a bunch of separate blocks of state:\n\n\n{\n\n    \nmarket\n \n=\n \n{\n\n        \n-- state about the market\n\n    \n},\n\n    \nround\n \n=\n \n{\n\n        \n-- state about the round\n\n    \n},\n\n    \nplayers\n \n=\n \n{\n\n        \n-- state about players in the game\n\n    \n},\n\n    \n-- ...and so forth\n\n\n}\n\n\n\n\n\nYou can write a reducer that works like this:\n\n\nlocal\n \nfunction\n \nreducer\n(\nstate\n,\n \naction\n)\n\n    \nreturn\n \n{\n\n        \nmarket\n \n=\n \nmarketReducer\n(\nstate\n.\nmarket\n,\n \naction\n),\n\n        \nround\n \n=\n \nroundReducer\n(\nstate\n.\nround\n,\n \naction\n),\n\n        \nplayers\n \n=\n \nplayersReducer\n(\nstate\n.\nplayers\n,\n \naction\n),\n\n    \n}\n\n\nend\n\n\n\n\n\nThe individual reducer functions can come from separate modules anywhere in your game - there's nothing special about them. They're just like any other reducer. Rodux provides a super-simple function that can make combining these reducers easier: \ncombineReducers\n. It works like this:\n\n\nlocal\n \nreducer\n \n=\n \nRodux\n.\ncombineReducers\n({\n\n    \nmarket\n \n=\n \nmarketReducer\n,\n\n    \nround\n \n=\n \nroundReducer\n,\n\n    \nplayers\n \n=\n \nplayersReducer\n,\n\n\n})\n\n\n\n\n\nThis is exactly the same as the reducer from before! Further, nothing stops you from combining reducers in multiple layers, like this:\n\n\nlocal\n \nreducer\n \n=\n \nRodux\n.\ncombineReducers\n({\n\n    \nmarket\n \n=\n \nRodux\n.\ncombineReducers\n({\n\n        \nsell\n \n=\n \nmarketSellReducer\n,\n\n        \nbuy\n \n=\n \nmarketBuyReducer\n,\n\n        \nbank\n \n=\n \nmarketBankReducer\n,\n\n    \n}),\n\n\n})\n\n\n\n\n\nRodux's only constraint on your code is that at the end you have to glue everything together into one function. How you structure the rest of your code is entirely up to you.",
+            "title": "Modularity"
+        },
+        {
+            "location": "/guide/modularity/#modularity",
+            "text": "Despite Rodux's requirement that your state be centralized in a single object, modular code is still possible!  A lot of the time, you'll have a bunch of separate blocks of state:  { \n     market   =   { \n         -- state about the market \n     }, \n     round   =   { \n         -- state about the round \n     }, \n     players   =   { \n         -- state about players in the game \n     }, \n     -- ...and so forth  }   You can write a reducer that works like this:  local   function   reducer ( state ,   action ) \n     return   { \n         market   =   marketReducer ( state . market ,   action ), \n         round   =   roundReducer ( state . round ,   action ), \n         players   =   playersReducer ( state . players ,   action ), \n     }  end   The individual reducer functions can come from separate modules anywhere in your game - there's nothing special about them. They're just like any other reducer. Rodux provides a super-simple function that can make combining these reducers easier:  combineReducers . It works like this:  local   reducer   =   Rodux . combineReducers ({ \n     market   =   marketReducer , \n     round   =   roundReducer , \n     players   =   playersReducer ,  })   This is exactly the same as the reducer from before! Further, nothing stops you from combining reducers in multiple layers, like this:  local   reducer   =   Rodux . combineReducers ({ \n     market   =   Rodux . combineReducers ({ \n         sell   =   marketSellReducer , \n         buy   =   marketBuyReducer , \n         bank   =   marketBankReducer , \n     }),  })   Rodux's only constraint on your code is that at the end you have to glue everything together into one function. How you structure the rest of your code is entirely up to you.",
+            "title": "Modularity"
+        },
+        {
+            "location": "/guide/middleware/",
+            "text": "Middleware\n\u00b6\n\n\nMiddleware is a way to modify the behavior of a store by altering the dispatch behavior. Middlewares can modify an action, consume it entirely (stopping it from being dispatched), or just do something else on top of the action. They do this by overriding the store's \ndispatch\n method entirely. A middleware is a factory for new \ndispatch\n methods, to rephrase things.\n\n\nUsing middlewares\n\u00b6\n\n\nMiddlewares can be used by specifying them in an array in the third argument of \nStore.new\n:\n\n\nlocal\n \nstore\n \n=\n \nRodux\n.\nStore\n.\nnew\n(\n\n    \nreducer\n,\n\n    \ninitialState\n,\n\n    \n{\n \nmiddleware3\n,\n \nmiddleware2\n,\n \nmiddleware1\n \n}\n\n\n)\n\n\n\n\n\n\n\nQuestion\n\n\nWhy are the middlewares in reverse order?\n\u00b6\n\n\nRodux evaluates its middlewares in last-in-first-out order: the last argument is the one that's invoked first. The order of your middlewares is important.\n\n\n\n\nOnce you've done this, the middlewares are active and will take effect whenever you use the store's \ndispatch\n method.\n\n\nBuilt-in middlewares\n\u00b6\n\n\nRodux comes with two built-in middlewares: \nloggerMiddleware\n and \nthunkMiddleware\n.\n\n\nloggerMiddleware\n\u00b6\n\n\nloggerMiddleware\n is a very simple middleware that lets you log changes to your state. It is exposed as \nRodux.loggerMiddleware\n from the main Rodux module. Whenever an action is dispatched, it will print two things:\n\n\n\n\nThe action in its entirety\n\n\nThe state after the action was reduced\n\n\n\n\nTo use it, specify it like this:\n\n\nlocal\n \nstore\n \n=\n \nRodux\n.\nStore\n.\nnew\n(\n\n    \nreducer\n,\n \n    \ninitialState\n,\n \n    \n{\n \nRodux\n.\nloggerMiddleware\n()\n \n}\n\n\n)\n\n\n\n\n\n\n\nQuestion\n\n\nWhy is \nloggerMiddleware\n called?\n\u00b6\n\n\nloggerMiddleware\n is called because it allows you to change the function used to print to the output. For example, if you wanted to print all the changes to your store as warnings, you could do this:\n\n\nlocal\n \nstore\n \n=\n \nRodux\n.\nStore\n.\nnew\n(\n\n    \nreducer\n,\n \n    \ninitialState\n,\n \n    \n{\n \nRodux\n.\nloggerMiddleware\n(\nwarn\n)\n \n}\n\n\n)\n\n\n\n\n\n\n\nNow, whenever you dispatch an action, you'll see something like the following in the output window:\n\n\nAction dispatched: {\n        type = \"test\"; (string)\n        payload = 1; (number)\n    }\nState changed to: {\n        testValue = 1; (number)\n    }\n\n\n\n\nthunkMiddleware\n\u00b6\n\n\nthunkMiddleware\n is a middleware that lets you use thunks - it lets you dispatch a function to your store, which will be run. The function can do anything, and can dispatch new actions at will. Thunks are commonly used for asynchronous, long-running operations, like reading from a data store or performing a HTTP request.\n\n\nTo use it, just include it in your \nmiddlewares\n table:\n\n\nlocal\n \nstore\n \n=\n \nRodux\n.\nStore\n.\nnew\n(\n\n    \nreducer\n,\n \n    \ninitialState\n,\n \n    \n{\n \nRodux\n.\nthunkMiddleware\n \n}\n\n\n)\n\n\n\n\n\nOnce you've done that, you can dispatch a function just like you would an action with the store's \ndispatch\n method:\n\n\nstore\n:\ndispatch\n(\nfunction\n(\nstore\n)\n\n    \n-- Do something that takes a while\n\n\n    \n-- Then dispatch an action to tell the store about the result!\n\n    \nstore\n:\ndispatch\n({\n\n        \ntype\n \n=\n \n\"someAction\"\n\n    \n})\n\n\nend\n)\n\n\n\n\n\nWriting your own middlewares\n\u00b6\n\n\nThere's nothing magic about writing middlewares! Here's how you can write your own.\n\n\nA simple example: printing the type field\n\u00b6\n\n\nHere's a simple middleware that just prints the action's \ntype\n field:\n\n\nlocal\n \nfunction\n \nprintType\n(\nnext\n)\n\n    \nreturn\n \nfunction\n(\nstore\n,\n \naction\n)\n\n        \nprint\n(\naction\n.\ntype\n)\n\n        \nnext\n(\nstore\n,\n \naction\n)\n\n    \nend\n\n\nend\n\n\n\n\n\nBreaking it down:\n\n\n\n\nprintType\n is a function that takes one argument: \nnext\n. This is the next middleware in the chain. At the end of the chain lies the original \ndispatch\n method.\n\n\nprintType\n returns a new function that takes two arguments: \nstore\n and \naction\n. These arguments are the \nexact signature\n of the original \ndispatch\n method.\n\n\nThe function returned from \nprintType\n prints the action's type, then calls \nnext\n to pass the action on.\n\n\n\n\nTo use this function, specify it in the third argument to \nStore.new\n:\n\n\nlocal\n \nfunction\n \nreducer\n(\nstate\n,\n \naction\n)\n\n    \n-- Just return the same state, for demonstrational purposes.\n\n    \nreturn\n \nstate\n\n\nend\n\n\n\nlocal\n \nstore\n \n=\n \nStore\n.\nnew\n(\nreducer\n,\n \n{},\n \n{\n \nprintType\n \n})\n\n\n\nstore\n:\ndispatch\n({\n\n    \ntype\n \n=\n \n\"testAction\"\n\n\n})\n\n\n\n\n\nRun this code and you'll see this in the output:\n\ntestAction\n\n\n\nCanceling actions\n\u00b6\n\n\nNothing says you \nhave\n to call \nnext\n at all! Here's a middleware that just swallows up any action that it comes across. These actions never modify the store's state.\n\n\nlocal\n \nfunction\n \nswallowAction\n(\nnext\n)\n\n    \nreturn\n \nfunction\n(\nstore\n,\n \naction\n)\n\n        \n-- Do nothing! Since next is not called, the action never moves on.\n\n    \nend\n\n\nend\n\n\n\n\n\nModifying actions: PascalCased Type\n\u00b6\n\n\nSimilarly, you don't always have to call \nnext\n with the same action. Say you prefer using \nPascalCase\n for your actions. Rodux requires that your actions have a \ntype\n field, so your code style is being broken! Middlewares to the rescue - you can replace the action so that it fits the structure Rodux is expecting, without having to make compromises about your casing.\n\n\nlocal\n \nfunction\n \npascalCaseType\n(\nnext\n)\n\n    \nreturn\n \nfunction\n(\nstore\n,\n \naction\n)\n\n        \n-- If the action has a Type field, substitute it with an identical action\n\n        \n-- that substitutes type for Type!\n\n        \nif\n \naction\n.\nType\n \nthen\n\n            \nlocal\n \nnewAction\n \n=\n \n{}\n\n\n            \nfor\n \nkey\n,\n \nvalue\n \nin\n \npairs\n(\naction\n)\n \ndo\n\n                \n-- Change the casing on the Type field\n\n                \nif\n \nkey\n \n==\n \n\"Type\"\n \nthen\n\n                    \nnewAction\n.\ntype\n \n=\n \nvalue\n\n                \n-- Everything else can stay as-is\n\n                \nelse\n\n                    \nnewAction\n[\nkey\n]\n \n=\n \nvalue\n\n                \nend\n\n            \nend\n\n\n            \n-- Pass the new action on!\n\n            \nnext\n(\nstore\n,\n \nnewAction\n)\n\n        \n-- Otherwise, just send the action on!\n\n        \nelse\n\n            \nnext\n(\nstore\n,\n \naction\n)\n\n        \nend\n\n    \nend\n\n\nend",
+            "title": "Middleware"
+        },
+        {
+            "location": "/guide/middleware/#middleware",
+            "text": "Middleware is a way to modify the behavior of a store by altering the dispatch behavior. Middlewares can modify an action, consume it entirely (stopping it from being dispatched), or just do something else on top of the action. They do this by overriding the store's  dispatch  method entirely. A middleware is a factory for new  dispatch  methods, to rephrase things.",
+            "title": "Middleware"
+        },
+        {
+            "location": "/guide/middleware/#using-middlewares",
+            "text": "Middlewares can be used by specifying them in an array in the third argument of  Store.new :  local   store   =   Rodux . Store . new ( \n     reducer , \n     initialState , \n     {   middleware3 ,   middleware2 ,   middleware1   }  )    Question",
+            "title": "Using middlewares"
+        },
+        {
+            "location": "/guide/middleware/#why-are-the-middlewares-in-reverse-order",
+            "text": "Rodux evaluates its middlewares in last-in-first-out order: the last argument is the one that's invoked first. The order of your middlewares is important.   Once you've done this, the middlewares are active and will take effect whenever you use the store's  dispatch  method.",
+            "title": "Why are the middlewares in reverse order?"
+        },
+        {
+            "location": "/guide/middleware/#built-in-middlewares",
+            "text": "Rodux comes with two built-in middlewares:  loggerMiddleware  and  thunkMiddleware .",
+            "title": "Built-in middlewares"
+        },
+        {
+            "location": "/guide/middleware/#loggermiddleware",
+            "text": "loggerMiddleware  is a very simple middleware that lets you log changes to your state. It is exposed as  Rodux.loggerMiddleware  from the main Rodux module. Whenever an action is dispatched, it will print two things:   The action in its entirety  The state after the action was reduced   To use it, specify it like this:  local   store   =   Rodux . Store . new ( \n     reducer ,  \n     initialState ,  \n     {   Rodux . loggerMiddleware ()   }  )    Question",
+            "title": "loggerMiddleware"
+        },
+        {
+            "location": "/guide/middleware/#why-is-loggermiddleware-called",
+            "text": "loggerMiddleware  is called because it allows you to change the function used to print to the output. For example, if you wanted to print all the changes to your store as warnings, you could do this:  local   store   =   Rodux . Store . new ( \n     reducer ,  \n     initialState ,  \n     {   Rodux . loggerMiddleware ( warn )   }  )    Now, whenever you dispatch an action, you'll see something like the following in the output window:  Action dispatched: {\n        type = \"test\"; (string)\n        payload = 1; (number)\n    }\nState changed to: {\n        testValue = 1; (number)\n    }",
+            "title": "Why is loggerMiddleware called?"
+        },
+        {
+            "location": "/guide/middleware/#thunkmiddleware",
+            "text": "thunkMiddleware  is a middleware that lets you use thunks - it lets you dispatch a function to your store, which will be run. The function can do anything, and can dispatch new actions at will. Thunks are commonly used for asynchronous, long-running operations, like reading from a data store or performing a HTTP request.  To use it, just include it in your  middlewares  table:  local   store   =   Rodux . Store . new ( \n     reducer ,  \n     initialState ,  \n     {   Rodux . thunkMiddleware   }  )   Once you've done that, you can dispatch a function just like you would an action with the store's  dispatch  method:  store : dispatch ( function ( store ) \n     -- Do something that takes a while \n\n     -- Then dispatch an action to tell the store about the result! \n     store : dispatch ({ \n         type   =   \"someAction\" \n     })  end )",
+            "title": "thunkMiddleware"
+        },
+        {
+            "location": "/guide/middleware/#writing-your-own-middlewares",
+            "text": "There's nothing magic about writing middlewares! Here's how you can write your own.",
+            "title": "Writing your own middlewares"
+        },
+        {
+            "location": "/guide/middleware/#a-simple-example-printing-the-type-field",
+            "text": "Here's a simple middleware that just prints the action's  type  field:  local   function   printType ( next ) \n     return   function ( store ,   action ) \n         print ( action . type ) \n         next ( store ,   action ) \n     end  end   Breaking it down:   printType  is a function that takes one argument:  next . This is the next middleware in the chain. At the end of the chain lies the original  dispatch  method.  printType  returns a new function that takes two arguments:  store  and  action . These arguments are the  exact signature  of the original  dispatch  method.  The function returned from  printType  prints the action's type, then calls  next  to pass the action on.   To use this function, specify it in the third argument to  Store.new :  local   function   reducer ( state ,   action ) \n     -- Just return the same state, for demonstrational purposes. \n     return   state  end  local   store   =   Store . new ( reducer ,   {},   {   printType   })  store : dispatch ({ \n     type   =   \"testAction\"  })   Run this code and you'll see this in the output: testAction",
+            "title": "A simple example: printing the type field"
+        },
+        {
+            "location": "/guide/middleware/#canceling-actions",
+            "text": "Nothing says you  have  to call  next  at all! Here's a middleware that just swallows up any action that it comes across. These actions never modify the store's state.  local   function   swallowAction ( next ) \n     return   function ( store ,   action ) \n         -- Do nothing! Since next is not called, the action never moves on. \n     end  end",
+            "title": "Canceling actions"
+        },
+        {
+            "location": "/guide/middleware/#modifying-actions-pascalcased-type",
+            "text": "Similarly, you don't always have to call  next  with the same action. Say you prefer using  PascalCase  for your actions. Rodux requires that your actions have a  type  field, so your code style is being broken! Middlewares to the rescue - you can replace the action so that it fits the structure Rodux is expecting, without having to make compromises about your casing.  local   function   pascalCaseType ( next ) \n     return   function ( store ,   action ) \n         -- If the action has a Type field, substitute it with an identical action \n         -- that substitutes type for Type! \n         if   action . Type   then \n             local   newAction   =   {} \n\n             for   key ,   value   in   pairs ( action )   do \n                 -- Change the casing on the Type field \n                 if   key   ==   \"Type\"   then \n                     newAction . type   =   value \n                 -- Everything else can stay as-is \n                 else \n                     newAction [ key ]   =   value \n                 end \n             end \n\n             -- Pass the new action on! \n             next ( store ,   newAction ) \n         -- Otherwise, just send the action on! \n         else \n             next ( store ,   action ) \n         end \n     end  end",
+            "title": "Modifying actions: PascalCased Type"
+        },
+        {
+            "location": "/api-reference/",
+            "text": "Rodux API Reference\n\u00b6\n\n\nStore\n\u00b6\n\n\nThe Store class is the core piece of Rodux. It is the state container that you create and use.\n\n\nStore.new\n\u00b6\n\n\nStore\n.\nnew\n(\nreducer\n,\n \ninitialState\n,\n \nmiddlewares\n)\n \n->\n \nStore\n\n\n\nCreates and returns a new store.\n\n\nreducer\n is the store's root reducer function. \ninitialState\n is the store's initial state. This should be used to load a saved state from storage. \nmiddlewares\n is a table of middlewares to apply.\n\n\nThe store will automatically dispatch an initialization action with a \ntype\n of \n@@INIT\n.\n\n\n\n\nNote\n\n\nThe initialization action does not pass through middlewares prior to reaching the reducer.\n\n\n\n\nStore.changed\n\u00b6\n\n\nStore\n.\nchanged\n:\nconnect\n(\nfunction\n(\nnewState\n,\n \noldState\n)\n\n    \n-- do something with newState or oldState\n\n\nend\n)\n\n\n\nA \nSignal\n that is fired when the store's state is changed.\n\n\n\n\nDanger\n\n\nDo not yield within any listeners on \nchanged\n; an error will be thrown.\n\n\n\n\nStore:dispatch\n\u00b6\n\n\nStore\n:\ndispatch\n(\naction\n)\n \n->\n \nnil\n\n\n\nDispatches an action. The action will travel through all of the store's middlewares before reaching the store's reducer.\n\n\nThe action must contain a \ntype\n field to indicate what type of action it is. No other fields are required.\n\n\nStore:getState\n\u00b6\n\n\nStore\n:\ngetState\n()\n \n->\n \ntable\n\n\n\nGets the store's current state.\n\n\n\n\nWarning\n\n\nDo not modify this value. Doing so may cause serious bugs in Rodux, your code, or both!\n\n\n\n\nStore:destruct\n\u00b6\n\n\nStore\n:\ndestruct\n()\n \n->\n \nnil\n\n\n\nDestroys the store, disconnecting all connections it may possess.\n\n\n\n\nDanger\n\n\nAttempting to use the store after \ndestruct\n has been called will cause problems.\n\n\n\n\nStore:flush\n\u00b6\n\n\nStore\n:\nflush\n()\n \n->\n \nnil\n\n\n\nFlushes the store's pending actions, firing the \nchanged\n event. You should not need to use this method; it is called automatically from within Rodux.\n\n\nSignal\n\u00b6\n\n\nThe Signal class in Rodux represents a simple, predictable event that is controlled from within Rodux. It is not publicly exposed and cannot be created outside of Rodux.\n\n\nSignal:connect\n\u00b6\n\n\nSignal\n:\nconnect\n(\nlistener\n)\n \n->\n \n{\n \ndisconnect\n \n}\n\n\n\nConnects a listener to the signal. The listener will be invoked whenever the signal is fired.\n\n\nconnect\n returns a table with a \ndisconnect\n function that can be used to disconnect the listener from the signal.\n\n\nHelper functions\n\u00b6\n\n\nRodux supplies some helper functions to make creating complex reducers easier.\n\n\ncombineReducers\n\u00b6\n\n\nA helper function that can be used to combine reducers. It is exposed as \nRodux.combineReducers\n.\n\n\nlocal\n \nreducer\n \n=\n \ncombineReducers\n({\n\n    \nkey1\n \n=\n \nreducer1\n,\n\n    \nkey2\n \n=\n \nreducer2\n,\n\n\n})\n\n\n\n\n\ncombineReducers\n is functionally equivalent to writing:\n\n\nlocal\n \nfunction\n \nreducer\n(\nstate\n,\n \naction\n)\n\n    \nreturn\n \n{\n\n        \nkey1\n \n=\n \nreducer1\n(\nstate\n.\nkey1\n,\n \naction\n),\n\n        \nkey2\n \n=\n \nreducer2\n(\nstate\n.\nkey2\n,\n \naction\n),\n\n    \n}\n\n\nend\n\n\n\n\n\ncreateReducer\n\u00b6\n\n\nA helper function that can be used to create reducers. It is exposed as \nRodux.createReducer\n.\n\n\nlocal\n \nreducer\n \n=\n \ncreateReducer\n({\n\n    \naction1\n \n=\n \nfunction\n(\nstate\n,\n \naction\n)\n\n        \n-- Handle actions of type \"action1\"\n\n    \nend\n,\n\n    \naction2\n \n=\n \nfunction\n(\nstate\n,\n \naction\n)\n\n        \n-- Handle actions of type \"action2\"\n\n    \nend\n,\n\n    \n-- ...\n\n\n})\n\n\n\n\n\nMiddleware\n\u00b6\n\n\nRodux ships with several middlewares that address common use-cases.\n\n\nloggerMiddleware\n\u00b6\n\n\nloggerMiddleware\n(\noutputFunction\n \n=\n \nprint\n)\n \n->\n \nmiddlewareFunction\n\n\n\nA middleware that logs actions and the new state that results from them. It is exposed as \nRodux.loggerMiddleware\n.\n\n\nThis middleware supports changing the output function. By default, it is \nprint\n, and state changes are printed to the output. As a consequence of this, \nloggerMiddleware\n must be called when using it:\n\n\nlocal\n \nstore\n \n=\n \nStore\n.\nnew\n(\nreducer\n,\n \ninitialState\n,\n \n{\n \nloggerMiddleware\n()\n \n})\n\n\n\n\n\nthunkMiddleware\n\u00b6\n\n\nA middleware that allows thunks to be dispatched. Thunks are functions that perform asynchronous tasks or side effects, and can dispatch actions as needed. It is exposed as \nRodux.thunkMiddleware\n.\n\n\nlocal\n \nstore\n \n=\n \nStore\n.\nnew\n(\nreducer\n,\n \ninitialState\n,\n \n{\n \nthunkMiddleware\n \n})\n\n\nstore\n:\ndispatch\n(\nfunction\n(\nstore\n)\n\n    \nprint\n(\n\"Hello from a thunk!\"\n)\n\n    \nstore\n:\ndispatch\n({\n\n        \ntype\n \n=\n \n\"thunkAction\"\n\n    \n})\n\n\nend\n)",
+            "title": "API Reference"
+        },
+        {
+            "location": "/api-reference/#rodux-api-reference",
+            "text": "",
+            "title": "Rodux API Reference"
+        },
+        {
+            "location": "/api-reference/#store",
+            "text": "The Store class is the core piece of Rodux. It is the state container that you create and use.",
+            "title": "Store"
+        },
+        {
+            "location": "/api-reference/#storenew",
+            "text": "Store . new ( reducer ,   initialState ,   middlewares )   ->   Store  \nCreates and returns a new store.  reducer  is the store's root reducer function.  initialState  is the store's initial state. This should be used to load a saved state from storage.  middlewares  is a table of middlewares to apply.  The store will automatically dispatch an initialization action with a  type  of  @@INIT .   Note  The initialization action does not pass through middlewares prior to reaching the reducer.",
+            "title": "Store.new"
+        },
+        {
+            "location": "/api-reference/#storechanged",
+            "text": "Store . changed : connect ( function ( newState ,   oldState ) \n     -- do something with newState or oldState  end )  \nA  Signal  that is fired when the store's state is changed.   Danger  Do not yield within any listeners on  changed ; an error will be thrown.",
+            "title": "Store.changed"
+        },
+        {
+            "location": "/api-reference/#storedispatch",
+            "text": "Store : dispatch ( action )   ->   nil  \nDispatches an action. The action will travel through all of the store's middlewares before reaching the store's reducer.  The action must contain a  type  field to indicate what type of action it is. No other fields are required.",
+            "title": "Store:dispatch"
+        },
+        {
+            "location": "/api-reference/#storegetstate",
+            "text": "Store : getState ()   ->   table  \nGets the store's current state.   Warning  Do not modify this value. Doing so may cause serious bugs in Rodux, your code, or both!",
+            "title": "Store:getState"
+        },
+        {
+            "location": "/api-reference/#storedestruct",
+            "text": "Store : destruct ()   ->   nil  \nDestroys the store, disconnecting all connections it may possess.   Danger  Attempting to use the store after  destruct  has been called will cause problems.",
+            "title": "Store:destruct"
+        },
+        {
+            "location": "/api-reference/#storeflush",
+            "text": "Store : flush ()   ->   nil  \nFlushes the store's pending actions, firing the  changed  event. You should not need to use this method; it is called automatically from within Rodux.",
+            "title": "Store:flush"
+        },
+        {
+            "location": "/api-reference/#signal",
+            "text": "The Signal class in Rodux represents a simple, predictable event that is controlled from within Rodux. It is not publicly exposed and cannot be created outside of Rodux.",
+            "title": "Signal"
+        },
+        {
+            "location": "/api-reference/#signalconnect",
+            "text": "Signal : connect ( listener )   ->   {   disconnect   }  \nConnects a listener to the signal. The listener will be invoked whenever the signal is fired.  connect  returns a table with a  disconnect  function that can be used to disconnect the listener from the signal.",
+            "title": "Signal:connect"
+        },
+        {
+            "location": "/api-reference/#helper-functions",
+            "text": "Rodux supplies some helper functions to make creating complex reducers easier.",
+            "title": "Helper functions"
+        },
+        {
+            "location": "/api-reference/#combinereducers",
+            "text": "A helper function that can be used to combine reducers. It is exposed as  Rodux.combineReducers .  local   reducer   =   combineReducers ({ \n     key1   =   reducer1 , \n     key2   =   reducer2 ,  })   combineReducers  is functionally equivalent to writing:  local   function   reducer ( state ,   action ) \n     return   { \n         key1   =   reducer1 ( state . key1 ,   action ), \n         key2   =   reducer2 ( state . key2 ,   action ), \n     }  end",
+            "title": "combineReducers"
+        },
+        {
+            "location": "/api-reference/#createreducer",
+            "text": "A helper function that can be used to create reducers. It is exposed as  Rodux.createReducer .  local   reducer   =   createReducer ({ \n     action1   =   function ( state ,   action ) \n         -- Handle actions of type \"action1\" \n     end , \n     action2   =   function ( state ,   action ) \n         -- Handle actions of type \"action2\" \n     end , \n     -- ...  })",
+            "title": "createReducer"
+        },
+        {
+            "location": "/api-reference/#middleware",
+            "text": "Rodux ships with several middlewares that address common use-cases.",
+            "title": "Middleware"
+        },
+        {
+            "location": "/api-reference/#loggermiddleware",
+            "text": "loggerMiddleware ( outputFunction   =   print )   ->   middlewareFunction  \nA middleware that logs actions and the new state that results from them. It is exposed as  Rodux.loggerMiddleware .  This middleware supports changing the output function. By default, it is  print , and state changes are printed to the output. As a consequence of this,  loggerMiddleware  must be called when using it:  local   store   =   Store . new ( reducer ,   initialState ,   {   loggerMiddleware ()   })",
+            "title": "loggerMiddleware"
+        },
+        {
+            "location": "/api-reference/#thunkmiddleware",
+            "text": "A middleware that allows thunks to be dispatched. Thunks are functions that perform asynchronous tasks or side effects, and can dispatch actions as needed. It is exposed as  Rodux.thunkMiddleware .  local   store   =   Store . new ( reducer ,   initialState ,   {   thunkMiddleware   })  store : dispatch ( function ( store ) \n     print ( \"Hello from a thunk!\" ) \n     store : dispatch ({ \n         type   =   \"thunkAction\" \n     })  end )",
+            "title": "thunkMiddleware"
+        }
+    ]
+}
